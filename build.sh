@@ -26,6 +26,8 @@ get_github_pages_url() {
 export PATH=$PATH:/home/juniorit/.local/bin
 
 [ ! -f "/home/juniorit/.local/bin/pygbag" ] && pip3 install -r requirements.txt
+! command -v ffmpeg &> /dev/null && sudo apt-get update && sudo apt-get install -y ffmpeg --no-install-recommends
+! command -v xdg-open &> /dev/null && sudo apt-get update && sudo apt-get install -y xdg-utils --no-install-recommends
 
 case $1 in
     "clean")
@@ -37,12 +39,16 @@ case $1 in
         php -S localhost:9000 -t mygame/build/web
         exit 0
         ;;
+    "debug")
+        xdg-open http://localhost:9000?-i ;php -S localhost:9000 -t mygame/build/web
+        exit 0
+        ;;
     "local_dev")
-        python3 -m pygbag --port 9000 mygame
+        xdg-open http://localhost:9000;python3 -m pygbag --bind localhost --port 9000 mygame
         exit 0
         ;;
     "deploy")
-        cp -f mygame/build/web/* "$GAMECRAFT_PROJECT_PATH/python/"
+        cp -f mygame/build/web/*.* "$GAMECRAFT_PROJECT_PATH/python/"
         cd $GAMECRAFT_PROJECT_PATH
         git add .
         git commit -a -m "deploy at $(date)"
@@ -62,6 +68,7 @@ case $1 in
         ;;
 esac
 
-pygbag --build --ume_block 0 --title "JuniorIT.AI - Game Craft" --app_name "JuniorIT.AI - Game Craft"  ./mygame/main.py
+[ ! -f "mygame/build/web/archives" ] && (mkdir -p mygame/build/web; ln -s `pwd`/pygame-web mygame/build/web/archives)
+pygbag --build --ume_block 0 --cdn https://pygame-web.github.io/archives/0.8/ --title "JuniorIT.AI - Game Craft" --app_name "JuniorIT.AI - Game Craft"  ./mygame/main.py
 
 )

@@ -2,7 +2,7 @@
 default_target: all
 
 #The .PHONY line declares all and clean as phony targets. A phony target is one that does not represent a file; it purely represents a command to be executed.
-.PHONY: all clean run dev deploy submit
+.PHONY: all clean run dev debug deploy submit
 
 all:
 	./build.sh
@@ -15,6 +15,9 @@ run:
 
 dev:
 	[ -z $$CODESPACES ] && ./build.sh local_dev; [ -n $$CODESPACES ] && (./build.sh; ./build.sh web)
+
+debug:
+	./build.sh debug
 
 deploy:
 	./build.sh deploy
