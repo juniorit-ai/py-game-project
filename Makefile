@@ -17,7 +17,7 @@ dev:
 	[ -z $$CODESPACES ] && ./build.sh local_dev; [ -n $$CODESPACES ] && (./build.sh; ./build.sh web)
 
 debug:
-	./build.sh debug
+	./build.sh; ./build.sh debug
 
 deploy:
 	./build.sh deploy

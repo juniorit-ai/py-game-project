@@ -26,7 +26,7 @@ get_github_pages_url() {
 export PATH=$PATH:/home/juniorit/.local/bin
 
 [ ! -f "/home/juniorit/.local/bin/pygbag" ] && pip3 install -r requirements.txt
-! command -v ffmpeg &> /dev/null && sudo apt-get update && sudo apt-get install -y ffmpeg --no-install-recommends
+#! command -v ffmpeg &> /dev/null && sudo apt-get update && sudo apt-get install -y ffmpeg --no-install-recommends
 ! command -v xdg-open &> /dev/null && sudo apt-get update && sudo apt-get install -y xdg-utils --no-install-recommends
 
 case $1 in
@@ -40,11 +40,11 @@ case $1 in
         exit 0
         ;;
     "debug")
-        xdg-open http://localhost:9000?-i ;php -S localhost:9000 -t mygame/build/web
+        xdg-open http://localhost:9000?-i; php -S localhost:9000 -t mygame/build/web
         exit 0
         ;;
     "local_dev")
-        xdg-open http://localhost:9000;python3 -m pygbag --bind localhost --port 9000 mygame
+        python3 -m pygbag --bind localhost --port 9000 mygame
         exit 0
         ;;
     "deploy")
