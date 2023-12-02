@@ -68,7 +68,8 @@ case $1 in
         ;;
 esac
 
-[ ! -f "mygame/build/web/archives" ] && (mkdir -p mygame/build/web; ln -s `pwd`/pygame-web mygame/build/web/archives)
+#[ ! -d "/home/juniorit/pygame-web" ] && wget -O /tmp/pygame-web.zip https://d2sdz7s4ni6kmi.cloudfront.net/juniorit/pygame-web.zip && unzip /tmp/pygame-web.zip -d /home/juniorit; rm /tmp/pygame-web.zip
+#[ ! -f "mygame/build/web/archives" ] && (mkdir -p mygame/build/web; ln -s /home/juniorit/pygame-web mygame/build/web/archives)
 pygbag --build --ume_block 0 --cdn https://pygame-web.github.io/archives/0.8/ --title "JuniorIT.AI - Game Craft" --app_name "JuniorIT.AI - Game Craft"  ./mygame/main.py
 
 )
